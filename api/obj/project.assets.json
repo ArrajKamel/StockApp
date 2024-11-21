@@ -3007,11 +3007,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/kamelarraj/Desktop/api/api.csproj",
+      "projectUniqueName": "/Users/kamelarraj/Desktop/StockApp/api/api.csproj",
       "projectName": "api",
-      "projectPath": "/Users/kamelarraj/Desktop/api/api.csproj",
+      "projectPath": "/Users/kamelarraj/Desktop/StockApp/api/api.csproj",
       "packagesPath": "/Users/kamelarraj/.nuget/packages/",
-      "outputPath": "/Users/kamelarraj/Desktop/api/obj/",
+      "outputPath": "/Users/kamelarraj/Desktop/StockApp/api/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/kamelarraj/.nuget/NuGet/NuGet.Config"
