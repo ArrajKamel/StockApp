@@ -21,14 +21,20 @@ namespace api.Controller
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
             var comments = await _commentRepo.GetAllAsync();
             var commentsDto = comments.Select(s =>s.ToCommentDto());
             return Ok(commentsDto);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}:int")]
         public async Task<IActionResult> GetById(int id)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
             var comment = await _commentRepo.GetByIdAsync(id);
             if (comment == null)
             {
@@ -37,9 +43,12 @@ namespace api.Controller
             return Ok(comment.ToCommentDto());
         }
 
-        [HttpPost("{stockId}")]
-        public async Task<IActionResult> Create([FromRoute] int stockId, CommentCreateDto commentDto)
+        [HttpPost("{stockId}:int")]
+        public async Task<IActionResult> Create([FromRoute] int stockId, [FromBody] CommentCreateDto commentDto)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
             if (!await _stockRepo.StockExists(stockId))
             {
                 return BadRequest("Stock does not exist");
@@ -49,9 +58,12 @@ namespace api.Controller
             return CreatedAtAction(nameof(GetById), new { id = commentModel }, commentModel.ToCommentDto()); 
         }
 
-        [HttpPut("title_update{id}")]
-        public async Task<IActionResult> UpdateTitle([FromRoute] int id, [FromBody] String title)
+        [HttpPut("{id}:int/title/{title}:string")]
+        public async Task<IActionResult> UpdateTitle([FromRoute] int id, [FromRoute] String title)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
             var comment = await _commentRepo.UpdateTitleAsync(id, title);
             if (comment == null)
             {
@@ -60,9 +72,12 @@ namespace api.Controller
             return Ok(comment.ToCommentDto());
         }
         
-        [HttpPut("content_update{id}")]
-        public async Task<IActionResult> UpdateContent([FromRoute] int id, [FromBody] String content)
+        [HttpPut("{id}:int/content/{content}:string")]
+        public async Task<IActionResult> UpdateContent([FromRoute] int id, [FromRoute] String content)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
             var comment = await _commentRepo.UpdateContentAsync(id, content);
             if (comment == null)
             {
@@ -70,10 +85,27 @@ namespace api.Controller
             }
             return Ok(comment.ToCommentDto());        
         }
+        
+        [HttpPut("{id}:int")]
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CommentUpdateDto commentModel)
+        {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
+            var existingComment = await _commentRepo.UpdateAsync(id, commentModel);
+            if (existingComment == null)
+            {
+                return NotFound();
+            }
+            return Ok(existingComment.ToCommentDto());        
+        }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}:int")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if(!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
             var comment = await _commentRepo.DeleteAsync(id);
             if (comment == null)
             {
