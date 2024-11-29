@@ -228,3 +228,12 @@
 /Users/kamelarraj/Desktop/StockApp/api/obj/Debug/net8.0/api.pdb
 /Users/kamelarraj/Desktop/StockApp/api/obj/Debug/net8.0/api.genruntimeconfig.cache
 /Users/kamelarraj/Desktop/StockApp/api/obj/Debug/net8.0/ref/api.dll
+/Users/kamelarraj/Desktop/StockApp/api/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/kamelarraj/Desktop/StockApp/api/bin/Debug/net8.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/kamelarraj/Desktop/StockApp/api/bin/Debug/net8.0/Microsoft.IdentityModel.Abstractions.dll
+/Users/kamelarraj/Desktop/StockApp/api/bin/Debug/net8.0/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/kamelarraj/Desktop/StockApp/api/bin/Debug/net8.0/Microsoft.IdentityModel.Logging.dll
+/Users/kamelarraj/Desktop/StockApp/api/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.dll
+/Users/kamelarraj/Desktop/StockApp/api/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/kamelarraj/Desktop/StockApp/api/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
+/Users/kamelarraj/Desktop/StockApp/api/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
