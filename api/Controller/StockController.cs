@@ -2,6 +2,7 @@ using api.DTO.Stock;
 using api.Interfaces;
 using api.Mapper;
 using api.Query;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controller
@@ -18,6 +19,7 @@ namespace api.Controller
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] StockQueryObject query)
         {
             if (!ModelState.IsValid)
