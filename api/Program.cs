@@ -3,6 +3,7 @@ using api.Data;
 using api.Interfaces;
 using api.Models;
 using api.Repository;
+using api.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -59,6 +60,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IStockRepository, StockRepository>();//dependency injection for the stock repo
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();//dependency injection for the stock repo
+builder.Services.AddScoped<ITokenService, TokenService>();// add the dependency injection 
 
 var app = builder.Build();
 
