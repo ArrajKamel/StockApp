@@ -36,7 +36,7 @@ namespace api.Controller
                     Email = registerDto.Email
                 };
                 
-                var userCreate = await _userManager.CreateAsync(appUser, registerDto.Password);
+                var userCreate = await _userManager.CreateAsync(appUser, registerDto.Password ?? "enter a password");
 
                 if (userCreate.Succeeded)
                 {
@@ -46,8 +46,8 @@ namespace api.Controller
                         return Ok(
                             new NewUserDto
                             {
-                                UserName = appUser.UserName,
-                                Email = appUser.Email, 
+                                UserName = appUser.UserName!,
+                                Email = appUser.Email!, 
                                 Token = _tokenService.CreateToken(appUser)
                             }
                             );
@@ -78,8 +78,8 @@ namespace api.Controller
             return Ok(
                 new NewUserDto
                 {
-                    UserName = user.UserName,
-                    Email = user.Email,
+                    UserName = user.UserName!,
+                    Email = user.Email!,
                     Token = _tokenService.CreateToken(user)
                 }
             );

@@ -17,6 +17,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// just for Swagger authorized button in the top right, found in the link https://teddysmith.io/swagger-net-core-web-api-jwt-setup/
 builder.Services.AddSwaggerGen(option =>
 {
     option.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
@@ -44,6 +45,7 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+//////////////////////////
 
 builder.Services.AddDbContext<AppDBContext>(options =>
 {
@@ -79,7 +81,7 @@ builder.Services.AddAuthentication(options =>
             ValidAudience = builder.Configuration["JWT:Audience"],
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
-                System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])
+                System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"]!)
             )
         };
     });

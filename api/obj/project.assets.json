@@ -3496,6 +3496,7 @@
       "packagesPath": "/Users/kamelarraj/.nuget/packages/",
       "outputPath": "/Users/kamelarraj/Desktop/StockApp/api/obj/",
       "projectStyle": "PackageReference",
+      "UsingMicrosoftNETSdk": false,
       "configFilePaths": [
         "/Users/kamelarraj/.nuget/NuGet/NuGet.Config"
       ],
