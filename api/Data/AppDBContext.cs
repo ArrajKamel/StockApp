@@ -1,5 +1,5 @@
 using System.Data.Common;
-using api.Migrations;
+// using api.Migrations;
 using api.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -17,10 +17,24 @@ public class AppDBContext : IdentityDbContext<AppUser>
 
     public DbSet<Stock> Stocks { get; set; }
     public DbSet<Comment> Comments { get; set; }
+    public DbSet<Portfolio> Portfolios { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+
+        builder.Entity<Portfolio>(x => x.HasKey(p => new { p.AppUserId, p.StockId })); // this line declare the foreign key 
+        
+        builder.Entity<Portfolio>()      //connecting to the table 
+            .HasOne(u => u.AppUser)
+            .WithMany(u => u.Portfolios)
+            .HasForeignKey(p => p.AppUserId);
+        
+        builder.Entity<Portfolio>()      //connecting to the table 
+            .HasOne(u => u.Stock)
+            .WithMany(s => s.Portfolios)
+            .HasForeignKey(p => p.StockId);
+            
         List<IdentityRole> roles = new List<IdentityRole>
         {
             new IdentityRole

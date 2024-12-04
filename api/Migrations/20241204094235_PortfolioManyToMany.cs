@@ -4,10 +4,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace api.Migrations
 {
     /// <inheritdoc />
-    public partial class Identity : Migration
+    public partial class PortfolioManyToMany : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,6 +51,24 @@ namespace api.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Stock",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CompanyName = table.Column<string>(type: "text", nullable: false),
+                    Symbol = table.Column<string>(type: "text", nullable: false),
+                    Purchase = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    LastDiv = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    Industry = table.Column<string>(type: "text", nullable: false),
+                    MarketCap = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stock", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -157,6 +177,60 @@ namespace api.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "comments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    StockId = table.Column<int>(type: "integer", nullable: true),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Content = table.Column<string>(type: "text", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_comments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_comments_Stock_StockId",
+                        column: x => x.StockId,
+                        principalTable: "Stock",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Portfolios",
+                columns: table => new
+                {
+                    AppUserId = table.Column<string>(type: "text", nullable: false),
+                    StockId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Portfolios", x => new { x.AppUserId, x.StockId });
+                    table.ForeignKey(
+                        name: "FK_Portfolios_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Portfolios_Stock_StockId",
+                        column: x => x.StockId,
+                        principalTable: "Stock",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "20a60b07-6de2-41dc-a4c0-9ae9c81aeabd", null, "Admin", "ADMIN" },
+                    { "6fa0edd4-c610-41f7-8924-d42799ccb289", null, "User", "USER" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -193,6 +267,16 @@ namespace api.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_comments_StockId",
+                table: "comments",
+                column: "StockId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Portfolios_StockId",
+                table: "Portfolios",
+                column: "StockId");
         }
 
         /// <inheritdoc />
@@ -214,10 +298,19 @@ namespace api.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "comments");
+
+            migrationBuilder.DropTable(
+                name: "Portfolios");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Stock");
         }
     }
 }

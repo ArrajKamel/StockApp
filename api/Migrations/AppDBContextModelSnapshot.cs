@@ -50,13 +50,13 @@ namespace api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "91c03beb-938f-4a51-a500-a045c08f4979",
+                            Id = "20a60b07-6de2-41dc-a4c0-9ae9c81aeabd",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "adcf1ed2-1dec-4fe7-8bae-83a61e8776a1",
+                            Id = "6fa0edd4-c610-41f7-8924-d42799ccb289",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -258,7 +258,22 @@ namespace api.Migrations
 
                     b.HasIndex("StockId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("comments");
+                });
+
+            modelBuilder.Entity("api.Models.Portfolio", b =>
+                {
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("text");
+
+                    b.Property<int>("StockId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("AppUserId", "StockId");
+
+                    b.HasIndex("StockId");
+
+                    b.ToTable("Portfolios");
                 });
 
             modelBuilder.Entity("api.Models.Stock", b =>
@@ -292,7 +307,7 @@ namespace api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Stocks");
+                    b.ToTable("Stock");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -355,9 +370,35 @@ namespace api.Migrations
                     b.Navigation("Stock");
                 });
 
+            modelBuilder.Entity("api.Models.Portfolio", b =>
+                {
+                    b.HasOne("api.Models.AppUser", "AppUser")
+                        .WithMany("Portfolios")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("api.Models.Stock", "Stock")
+                        .WithMany("Portfolios")
+                        .HasForeignKey("StockId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Stock");
+                });
+
+            modelBuilder.Entity("api.Models.AppUser", b =>
+                {
+                    b.Navigation("Portfolios");
+                });
+
             modelBuilder.Entity("api.Models.Stock", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Portfolios");
                 });
 #pragma warning restore 612, 618
         }
