@@ -9,19 +9,12 @@ namespace api.Controller
 {
     [Route("api/account")]
     [ApiController]
-    public class AccountController : ControllerBase
+    public class AccountController(
+        UserManager<AppUser> userManager,
+        ITokenService tokenService,
+        SignInManager<AppUser> signInManager)
+        : ControllerBase
     {
-     
-        private readonly UserManager<AppUser> _userManager;
-        private readonly ITokenService _tokenService; 
-        private readonly SignInManager<AppUser> _signInManager;
-        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, SignInManager<AppUser> signInManager)
-        {
-            _userManager = userManager;
-            _tokenService = tokenService;
-            _signInManager = signInManager;
-        }
-
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
@@ -36,11 +29,11 @@ namespace api.Controller
                     Email = registerDto.Email
                 };
                 
-                var userCreate = await _userManager.CreateAsync(appUser, registerDto.Password ?? "enter a password");
+                var userCreate = await userManager.CreateAsync(appUser, registerDto.Password ?? "enter a password");
 
                 if (userCreate.Succeeded)
                 {
-                    var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
+                    var roleResult = await userManager.AddToRoleAsync(appUser, "User");
                     
                     if(roleResult.Succeeded)
                         return Ok(
@@ -48,7 +41,7 @@ namespace api.Controller
                             {
                                 UserName = appUser.UserName!,
                                 Email = appUser.Email!, 
-                                Token = _tokenService.CreateToken(appUser)
+                                Token = tokenService.CreateToken(appUser)
                             }
                             );
                     else 
@@ -68,11 +61,11 @@ namespace api.Controller
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Username);// we can do it with Email
+            var user = await userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Username);// we can do it with Email
             if(user == null)
                 return Unauthorized("Invalid username");
             
-            var result = await _signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+            var result = await signInManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
             if(!result.Succeeded)
                 return Unauthorized("username or password is incorrect");
             return Ok(
@@ -80,7 +73,7 @@ namespace api.Controller
                 {
                     UserName = user.UserName!,
                     Email = user.Email!,
-                    Token = _tokenService.CreateToken(user)
+                    Token = tokenService.CreateToken(user)
                 }
             );
         }

@@ -9,15 +9,8 @@ namespace api.Controller
 {
     [Route("api/stock")]
     [ApiController]
-    public class StockController : ControllerBase
+    public class StockController(IStockRepository stockRepo) : ControllerBase
     {
-        private readonly IStockRepository _stockRepo;
-
-        public StockController(IStockRepository stockRepo)
-        {
-            _stockRepo = stockRepo;
-        }
-
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] StockQueryObject query)
@@ -25,7 +18,7 @@ namespace api.Controller
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var stocks = await _stockRepo.GetAllAsync(query);
+            var stocks = await stockRepo.GetAllAsync(query);
             var stockDto = stocks.Select(s => s.ToStockDto());
             return Ok(stockDto);
         }
@@ -36,7 +29,7 @@ namespace api.Controller
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var stock = await _stockRepo.GetByIdAsync(id);
+            var stock = await stockRepo.GetByIdAsync(id);
             if (stock == null)
             {
                 return NotFound();
@@ -51,7 +44,7 @@ namespace api.Controller
                 return BadRequest(ModelState);
             
             var stockModel =  stockCreateDto.CreateStockDtoToStock();
-            await _stockRepo.CreateAsync(stockModel);
+            await stockRepo.CreateAsync(stockModel);
             return CreatedAtAction(nameof(GetById), new { id = stockModel.Id }, stockModel.ToStockDto()); 
         }
 
@@ -62,7 +55,7 @@ namespace api.Controller
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var stockModel = await _stockRepo.UpdateAsync(id, stockUpdateDto);
+            var stockModel = await stockRepo.UpdateAsync(id, stockUpdateDto);
             if (stockModel == null)
             {
                 return NotFound();
@@ -77,7 +70,7 @@ namespace api.Controller
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var stockModel = await _stockRepo.UpdateCompanyAsync(id, stockUpdateDto);
+            var stockModel = await stockRepo.UpdateCompanyAsync(id, stockUpdateDto);
             if (stockModel == null)
             {
                 return NotFound();
@@ -92,7 +85,7 @@ namespace api.Controller
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var stockModel = await _stockRepo.DeleteAsync(id);
+            var stockModel = await stockRepo.DeleteAsync(id);
             if (stockModel == null)
             {
                 return NotFound(); 
