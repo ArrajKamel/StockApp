@@ -90,6 +90,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IStockRepository, StockRepository>();//dependency injection for the stock repo
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();//dependency injection for the stock repo
+builder.Services.AddScoped<IPortfolioRepository, PortfolioRepository>();//dependency injection for the stock repo
 builder.Services.AddScoped<ITokenService, TokenService>();// add the dependency injection 
 
 var app = builder.Build();

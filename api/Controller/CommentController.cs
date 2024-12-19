@@ -8,23 +8,16 @@ namespace api.Controller
 {
     [Route("api/comment")]
     [ApiController]
-    public class CommentController : ControllerBase
+    public class CommentController(ICommentRepository commentRepository, IStockRepository stockRepository)
+        : ControllerBase
     {
-        private readonly ICommentRepository _commentRepo;
-        private readonly IStockRepository _stockRepo;
-        public CommentController(ICommentRepository commentRepository, IStockRepository stockRepository)
-        {
-            _commentRepo = commentRepository;
-            _stockRepo = stockRepository;
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var comments = await _commentRepo.GetAllAsync();
+            var comments = await commentRepository.GetAllAsync();
             var commentsDto = comments.Select(s =>s.ToCommentDto());
             return Ok(commentsDto);
         }
@@ -35,7 +28,7 @@ namespace api.Controller
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var comment = await _commentRepo.GetByIdAsync(id);
+            var comment = await commentRepository.GetByIdAsync(id);
             if (comment == null)
             {
                 return NotFound();
@@ -49,12 +42,12 @@ namespace api.Controller
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            if (!await _stockRepo.StockExists(stockId))
+            if (!await stockRepository.StockExists(stockId))
             {
                 return BadRequest("Stock does not exist");
             }
             var commentModel =  commentDto.CommentCreateDtoToCommentDto(stockId);
-            await _commentRepo.CreateAsync(commentModel);
+            await commentRepository.CreateAsync(commentModel);
             return CreatedAtAction(nameof(GetById), new { id = commentModel }, commentModel.ToCommentDto()); 
         }
 
@@ -64,7 +57,7 @@ namespace api.Controller
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var comment = await _commentRepo.UpdateTitleAsync(id, title);
+            var comment = await commentRepository.UpdateTitleAsync(id, title);
             if (comment == null)
             {
                 return NotFound();
@@ -78,7 +71,7 @@ namespace api.Controller
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var comment = await _commentRepo.UpdateContentAsync(id, content);
+            var comment = await commentRepository.UpdateContentAsync(id, content);
             if (comment == null)
             {
                 return NotFound();
@@ -92,7 +85,7 @@ namespace api.Controller
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var existingComment = await _commentRepo.UpdateAsync(id, commentModel);
+            var existingComment = await commentRepository.UpdateAsync(id, commentModel);
             if (existingComment == null)
             {
                 return NotFound();
@@ -106,7 +99,7 @@ namespace api.Controller
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var comment = await _commentRepo.DeleteAsync(id);
+            var comment = await commentRepository.DeleteAsync(id);
             if (comment == null)
             {
                 return NotFound();
