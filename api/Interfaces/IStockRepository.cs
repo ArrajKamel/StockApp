@@ -8,6 +8,7 @@ namespace api.Interfaces
     {
         Task<List<Stock>> GetAllAsync(StockQueryObject query);
         Task<Stock?> GetByIdAsync(int id);//FirstOrDefault can be null that is why we put the '?'
+        Task<Stock?> GetBySymbolAsync(string symbol);
         Task<Stock> CreateAsync(Stock stockModel);
         Task<Stock?> UpdateAsync(int id, StockUpdateDto stockUpdateDto);
         Task<Stock?> UpdateCompanyAsync(int id, StockUpdateDto stockUpdateDto);
