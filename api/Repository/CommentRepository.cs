@@ -16,11 +16,11 @@ public class CommentRepository : ICommentRepository
     }
     public async Task<List<Comment>> GetAllAsync()
     {
-        return await _context.Comments.ToListAsync();
+        return await _context.Comments.Include(a => a.AppUser).ToListAsync();
     }
     public async Task<Comment?> GetByIdAsync(int id)
     {
-        return await _context.Comments.FirstOrDefaultAsync(c => c.Id == id);
+        return await _context.Comments.Include(a => a.AppUser).FirstOrDefaultAsync(c => c.Id == id);
     }
 
     public async Task<Comment?> UpdateTitleAsync(int id, string title)
