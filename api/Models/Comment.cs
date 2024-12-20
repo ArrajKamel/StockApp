@@ -10,4 +10,6 @@ public class Comment
     public String Title { get; set; } = String.Empty;
     public String Content { get; set; } = String.Empty;
     public DateTime CreatedOn { get; set; } = DateTime.UtcNow;//UtcNow because i am using postgres DBMS
+    public string AppUserId { get; set; } = String.Empty;
+    public AppUser AppUser { get; set; }
 }
