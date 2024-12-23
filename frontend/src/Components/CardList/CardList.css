@@ -1,0 +1,11 @@
+/* cardList.css */
+
+.cardList {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Centers the cards horizontally */
+    align-items: flex-start; /* Aligns the cards at the top */
+    gap: 20px; /* Adds space between the cards */
+    padding: 20px;
+    margin-top: 20px;
+  }

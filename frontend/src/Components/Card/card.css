@@ -1,0 +1,61 @@
+/* Card styles */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
+  background: var(--card-background);
+  box-shadow: 0 4px 8px var(--card-hover-shadow);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: var(--card-hover-transform);
+  box-shadow: 0 8px 16px var(--card-hover-shadow);
+}
+
+.card img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  margin-top: 20px;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card .details {
+  display: flex; /* Enable flexbox */
+  flex-direction: column; /* Stack children elements vertically */
+  align-items: center; /* Horizontally center the children */
+  justify-content: center; /* Optional: Vertically center the children */
+  padding: 20px;
+  text-align: center; /* Ensures text inside the elements is centered */
+  gap: 10px; /* Adds space between each element */
+}
+
+
+.card .details h2 {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.card .details .price {
+  font-size: 1.25rem; /* Slightly larger font size for emphasis */
+  color: var(--text-color); /* Matches the other text color */
+  margin: 5px 0; /* Space around the price */
+  font-weight: bold; /* Make the price stand out */
+}
+
+.card .details .info {
+  display: flex;/* Use flexbox for better alignment */
+  flex-direction: column;
+  align-items: center; /* Horizontally centers the text */
+  justify-content: center; /* Vertically centers the text if needed */
+  padding: 20px;
+  text-align: center; /* Ensures text within this block is centered */
+}

@@ -1,35 +1,62 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import CardList from './Components/CardList/CardList'
+import Search  from './Components/Search/Search';
+import {ChangeEvent, SyntheticEvent, useState} from "react";
+import {searchCompany} from "./api.tsx";
+import {CompanySearch} from "./company";
+
+
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [search, setSearch] = useState<string>("");
+    const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
+    const [serverError, setServerError] = useState<string | null>(null);
 
+    const handelSearchChange = (e:ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setSearch(e.target.value);
+        console.log(e);
+    };
+
+    // syntheticEvent is just instead of MouseEvent, cuz MouseEvent is not good for a reason
+    const onSearchSubmit = async (e: SyntheticEvent) => {
+        e.preventDefault();
+        const result = await searchCompany(search);
+        if (typeof result === "string") {
+             setServerError(result);
+        }else if(Array.isArray(result.data)) {
+            setSearchResult(result.data);
+        }
+        console.log(result.data);
+    };
+
+    const onPortfolioCreate =  (e: SyntheticEvent) => {
+        e.preventDefault();
+        console.log(e);
+    }
+
+    // console.log(searchCompany("apple"));
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+
+      <div className="App">
+          <>
+              <Search
+                  onSearchSubmit={onSearchSubmit}
+                  search={search}
+                  handelSearchChange={handelSearchChange}
+              />
+          </>
+
+          {serverError && <h1>{serverError}</h1>}
+
+          <div className="card-list-container">
+              <CardList
+                  searchResults={searchResult}
+                  onPortfolioCreate={onPortfolioCreate}
+              />
+          </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+  );
 }
 
 export default App
