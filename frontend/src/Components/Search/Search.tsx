@@ -1,5 +1,5 @@
-import React, { SyntheticEvent, ChangeEvent} from "react";
-import "./Search.css"; // Assuming you have styles for dark mode
+import React, { SyntheticEvent, ChangeEvent } from "react";
+import "./Search.css";
 
 type Props = {
     onSearchSubmit: (e: SyntheticEvent) => void;
@@ -10,18 +10,24 @@ type Props = {
 const Search: React.FC<Props> = ({
                                      onSearchSubmit,
                                      search,
-                                     handelSearchChange
-}: Props): JSX.Element => {
+                                     handelSearchChange,
+                                 }: Props): JSX.Element => {
     return (
-        <>
-            <form onSubmit={onSearchSubmit}>
-                <input
-                    value={search}
-                    onChange={handelSearchChange}
-                    placeholder="Search"
-                />
-            </form>
-        </>
+        <section className="relative">
+            <div className="max-w-4xl">
+                <form
+                    className="form md:flex-row md:space-y-0"
+                    onSubmit={onSearchSubmit}
+                >
+                    <input
+                        id="search-input"
+                        placeholder="Search companies"
+                        value={search}
+                        onChange={handelSearchChange}
+                    ></input>
+                </form>
+            </div>
+        </section>
     );
 };
 

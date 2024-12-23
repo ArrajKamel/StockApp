@@ -1,11 +1,17 @@
-/* cardList.css */
-
-.cardList {
+/* CardList container */
+.card-list-container {
     display: flex;
-    flex-direction: row;
-    justify-content: center; /* Centers the cards horizontally */
-    align-items: flex-start; /* Aligns the cards at the top */
-    gap: 20px; /* Adds space between the cards */
-    padding: 20px;
-    margin-top: 20px;
-  }
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px; /* Space between cards */
+    margin: 16px 0;
+}
+
+/* No results message */
+.card-list-container .no-results {
+    margin: 16px 0;
+    font-size: 1.25rem; /* Equivalent to text-xl */
+    font-weight: 600; /* Equivalent to font-semibold */
+    text-align: center;
+    color: #000; /* Black text */
+}

@@ -1,0 +1,62 @@
+/* Overall section styling */
+#portfolio {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    text-align: center; /* Ensures text is centered within the section */
+}
+
+/* Container for both "My Portfolio" and "Your portfolio is empty." text */
+.text-container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    gap: 16px; /* Space between the title and the empty message */
+}
+
+/* Title for the portfolio section */
+.portfolio-title {
+    margin-bottom: 12px;
+    font-size: 1.875rem; /* Equivalent to text-3xl */
+    font-weight: 600; /* Equivalent to font-semibold */
+}
+
+/* Empty portfolio message styling */
+.empty-portfolio-message {
+    font-size: 1.25rem; /* Equivalent to text-xl */
+    font-weight: 600; /* Equivalent to font-semibold */
+}
+
+/* Portfolio container styling */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centers cards horizontally */
+    gap: 24px; /* Spacing between portfolio cards */
+}
+
+/* Responsive design for medium screens (tablets and up) */
+@media (min-width: 768px) {
+    /* Adjust the text size of the portfolio title */
+    .portfolio-title {
+        font-size: 2.25rem; /* Equivalent to text-4xl */
+    }
+
+    /* Adjust the empty message text size */
+    .empty-portfolio-message {
+        font-size: 1.25rem; /* Consistent with text-xl */
+    }
+}
+
+/* Responsive design for larger screens (desktops) */
+@media (min-width: 1024px) {
+    /* Further adjust the text size of the portfolio title */
+    .portfolio-title {
+        font-size: 2.5rem; /* Larger text for desktop screens */
+    }
+
+    /* Adjust empty message text size for larger screens */
+    .empty-portfolio-message {
+        font-size: 1.5rem; /* Larger text for empty message on desktops */
+    }
+}

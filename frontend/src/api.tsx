@@ -12,8 +12,14 @@ export const searchCompany = async (query: string) => {
         );
         return data;
     }catch (error){
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         if (error.isAxiosError) {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             console.log("error message: ", error.message);
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             return error.message;
         } else {
             console.log("unexpected error, check the api stuff", error);

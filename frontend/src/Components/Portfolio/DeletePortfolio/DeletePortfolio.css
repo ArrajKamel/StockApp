@@ -1,0 +1,16 @@
+/* Button styling */
+.delete-portfolio-button {
+    display: block; /* Equivalent to block */
+    width: 100%; /* Full width */
+    padding: 12px 0; /* Equivalent to py-3 */
+    color: white; /* Text color */
+    background-color: #ef4444; /* Tailwind's bg-red-500 */
+    border: 2px solid #ef4444; /* Border with red color */
+    border-radius: 0.5rem; /* Equivalent to rounded-lg */
+    transition: background-color 0.2s, color 0.2s; /* Equivalent to duration-200 */
+}
+
+.delete-portfolio-button:hover {
+    color: #ef4444; /* Hover text color matches red */
+    background-color: white; /* Hover background white */
+}
