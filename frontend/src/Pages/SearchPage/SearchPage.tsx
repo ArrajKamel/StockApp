@@ -1,15 +1,13 @@
 import {ChangeEvent, SyntheticEvent, useState} from "react";
 import {CompanySearch} from "../../company";
 import {searchCompany} from "../../api.tsx";
-import Navbar from "../../Components/Navbar/Navbar.tsx";
 import Search from "../../Components/Search/Search.tsx";
 import PortfolioList from "../../Components/Portfolio/PortfolioList/PortfolioList.tsx";
 import CardList from "../../Components/CardList/CardList.tsx";
 
-interface Props {
-}
 
-const SearchPage = (props: Props) => {
+
+const SearchPage = () => {
     //states
     const [search, setSearch] = useState<string>("");
     const [portfolioValues, setPortfolioValues] = useState<string[]>([]);

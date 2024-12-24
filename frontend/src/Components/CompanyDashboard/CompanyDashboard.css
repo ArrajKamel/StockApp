@@ -1,0 +1,30 @@
+/* Dashboard container */
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Content container styles */
+.content-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between tail elements */
+}
+
+.children-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Ensure each pair of tails is horizontally aligned */
+.tail-container {
+    width: calc(50% - 10px); /* Adjust width for two tails in a row */
+}
+
+.outlet-container {
+    flex: 1;
+}

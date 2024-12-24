@@ -1,0 +1,113 @@
+/* General container styling */
+.bg-white {
+    background-color: #ffffff;
+}
+
+.shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.rounded-1g {
+    border-radius: 0.5rem; /* Adjust for softer edges */
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+.sm\\:p-6 {
+    padding: 1.5rem;
+}
+
+.xl\\:p-8 {
+    padding: 2rem;
+}
+
+/* Table styling */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Remove spacing between cells */
+    margin-top: 1rem;
+}
+
+thead {
+    background-color: #f9f9f9;
+}
+
+.min-w-full {
+    min-width: 100%;
+}
+
+.divide-y {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.m-5 {
+    margin: 1.25rem;
+}
+
+/* Table headers */
+th {
+    padding: 1rem;
+    text-align: left;
+    font-size: 0.75rem; /* Text size for header */
+    font-weight: 500; /* Medium font weight */
+    color: #6b7280; /* Gray text color */
+    text-transform: uppercase;
+    letter-spacing: 0.05em; /* Wider spacing for headers */
+}
+
+.text-fray-500 {
+    color: #9ca3af; /* Lighter gray for headers */
+}
+
+/* Table rows */
+tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+td {
+    padding: 1rem;
+    text-align: left;
+    font-size: 0.875rem; /* Small text size */
+    font-weight: 400; /* Normal font weight */
+    color: #1f2937; /* Dark gray for text */
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+/* Highlight on hover */
+tr:hover {
+    background-color: #f3f4f6; /* Light gray background for hover */
+}
+
+/* Additional utility classes */
+.text-sm {
+    font-size: 0.875rem; /* Small font size */
+}
+
+.font-normal {
+    font-weight: 400; /* Normal font weight */
+}
+
+.text-grey-900 {
+    color: #1f2937; /* Darker gray for text */
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+    th, td {
+        padding: 0.5rem;
+    }
+
+    .p-4 {
+        padding: 0.5rem;
+    }
+
+    .sm\\:p-6 {
+        padding: 1rem;
+    }
+
+    .xl\\:p-8 {
+        padding: 1.5rem;
+    }
+}

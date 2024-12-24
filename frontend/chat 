@@ -1,0 +1,460 @@
+I have three component of .tsx file type, am gonna share them with you and give you the details of how I want to place them, and then you are gonna generate me the .css file for each one of them, alright ?
+
+the first component is the CompanyPage, which contain to elements Sidebar and CompanyDashboard, I want the side bar to be placed in the left side of the company page and the company dashboard to be placed to the right of the side bar, the CompanyPage file is : import {useParams} from "react-router-dom";
+
+import {useEffect, useState} from "react";
+
+import {CompanyProfile} from "../../company";
+
+import {getCompanyProfile} from "../../api.tsx";
+
+import Sidebar from "../../Components/Sidebar/Sidebar.tsx";
+
+import CompanyDashboard from "../../Components/CompanyDashboard/CompanyDashboard";
+
+import Tail from "../../Components/Tail/Tail.tsx"
+
+import "./CompanyPage.css"
+
+
+
+
+
+
+
+const CompanyPage = () => {
+
+
+
+    let { ticker } = useParams();
+
+    const [company, setCompany] = useState<CompanyProfile>();
+
+
+
+    //be careful with useEffect
+
+    useEffect(() => {
+
+        const getProfileInit = async () => {
+
+            const result = await getCompanyProfile(ticker!);
+
+            setCompany(result?.data[0]);
+
+        }
+
+        getProfileInit();
+
+    }, [])
+
+    return (
+
+    <>
+
+        {company ? (
+
+            <div className="page-layout">
+
+                <div className="sidebar">
+
+                    <Sidebar/>
+
+                </div>
+
+
+
+                <div className="tail-container">
+
+                    <CompanyDashboard>
+
+                        <Tail title="Company Name" subtitle={company.companyName}/>
+
+                        <Tail title="Company Name" subtitle={company.companyName}/>
+
+                    </CompanyDashboard>
+
+                </div>
+
+            </div>
+
+        ) : (
+
+            <div>Company Not Found!</div>
+
+        )
+
+        };
+
+    </>
+
+    );
+
+}
+
+
+
+export default CompanyPage;for the Sidebar component, I want the home icon and the link to be horizontal aligned, and the combinations of an icon and link are placed upside each others, Sidebar.tsx is : import { Link } from "react-router-dom";
+
+import "./Sidebar.css";
+
+import {FaHome} from "react-icons/fa";
+
+
+
+const Sidebar = () => {
+
+    return (
+
+        <nav className="sidebar">
+
+
+
+            {/*<button className="sidebar-toggle">*/}
+
+            {/*    <i className="fas fa-ellipsis-v"></i>*/}
+
+            {/*</button>*/}
+
+
+
+            <div className="sidebar-content">
+
+                <div className="menu">
+
+
+
+                    <Link to="company-profile" className="menu-item" >
+
+                        <FaHome />
+
+                        <h6 className="menu-title">company portfolio</h6>
+
+                    </Link>
+
+
+
+                    <Link to="income-statement" className="menu-item" >
+
+                        <FaHome />
+
+                        <h6 className="menu-title">Income Statement</h6>
+
+                    </Link>
+
+
+
+                </div>
+
+            </div>
+
+        </nav>
+
+    );
+
+};
+
+
+
+export default Sidebar;the third element of the company page is CompanyDashboard which contains a group of tails where this tails contain sort of info about the company, however, I do not want the company dashboard element to intersect with the side bar I want them to be separated by a small cool space between them, and regarding the tails placement, I want each two tails to be horizontally aligned and the combinations of two tails to be upside each other, you can hard code this part cuz I want to include only 4 tails, the CompanyDashboard.tsx is : import { Outlet } from "react-router";
+
+import React from "react";
+
+
+
+type Props = {
+
+    children: React.ReactNode;
+
+}
+
+
+
+const CompanyDashboard = ({ children }: Props) => {
+
+    return (
+
+        <div className="dashboard-container">
+
+            <div className="content-container">
+
+                <div className="children-container">
+
+                    {children}
+
+                </div>
+
+                <div className="outlet-container">
+
+                    <Outlet />
+
+                </div>
+
+            </div>
+
+        </div>
+
+    );
+
+}
+
+
+
+export default CompanyDashboard;the Tail.tsx is : import React from "react";
+
+import "./Tail.css";
+
+
+
+type Props = {
+
+    title: string;
+
+    subtitle: string;
+
+};
+
+
+
+const Tail = ({ title, subtitle }: Props) => {
+
+    return (
+
+        <div className="tail-container">
+
+            <div className="tail-card">
+
+                <div className="tail-content">
+
+                    <div className="tail-header">
+
+                        <h5 className="tail-title">{title}</h5>
+
+                        <span className="tail-subtitle">{subtitle}</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    );
+
+};
+
+
+
+export default Tail;keep in mind that the company page is not the only component on the screen, there is a navigation bar in the top of the screen with is Navbar.tsx : import logo from "./logo.png";
+
+import "./Navbar.css";
+
+import {Link} from "react-router";
+
+
+
+const Navbar = () => {
+
+    return (
+
+        <nav className="navbar">
+
+            {/* Logo and Links */}
+
+            <div className="logo-links">
+
+                <Link to="/">
+
+                    <img src={logo} alt="Logo" className="logo"/>
+
+                </Link>
+
+                <div className="links">
+
+                    <Link to={"/search"} className="dashboard-link">
+
+                        search
+
+                    </Link>
+
+                </div>
+
+            </div>
+
+
+
+            {/* Login and Signup */}
+
+            <div className="auth-buttons">
+
+                <a href="#" className="login">
+
+                    Login
+
+                </a>
+
+                <a href="#" className="signup">
+
+                    Signup
+
+                </a>
+
+            </div>
+
+        </nav>
+
+    );
+
+};
+
+
+
+export default Navbar;with Navbar.css : /* Navbar container styles */
+
+.navbar {
+
+    position: relative;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 24px;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+}
+
+
+
+/* Logo and Links container */
+
+.navbar .logo-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 80px; /* Space between logo and links */
+
+}
+
+
+
+/*!* Logo styles *!*/
+
+/*.navbar .logo {*/
+
+/*    width: 40px;*/
+
+/*    height: 40px;*/
+
+/*}*/
+
+
+
+/* Navigation links */
+
+.navbar .links {
+
+    display: flex;
+
+    gap: 32px; /* Space between links */
+
+    font-weight: bold;
+
+}
+
+
+
+.navbar .links a {
+
+    text-decoration: none;
+
+    color: black;
+
+    transition: color 0.3s ease;
+
+}
+
+
+
+.navbar .links a:hover {
+
+    color: darkblue;
+
+}
+
+
+
+/* Login and Signup container */
+
+.navbar .auth-buttons {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 24px; /* Space between buttons */
+
+}
+
+
+
+/* Login link */
+
+.navbar .auth-buttons .login {
+
+    text-decoration: none;
+
+    color: black;
+
+    transition: color 0.3s ease;
+
+}
+
+
+
+.navbar .auth-buttons .login:hover {
+
+    color: darkblue;
+
+}
+
+
+
+/* Signup button */
+
+.navbar .auth-buttons .signup {
+
+    padding: 12px 32px; /* Vertical and horizontal padding */
+
+    font-weight: bold;
+
+    border-radius: 8px; /* Rounded corners */
+
+    text-decoration: none;
+
+    color: white;
+
+    background-color: lightgreen;
+
+    transition: opacity 0.3s ease;
+
+}
+
+
+
+.navbar .auth-buttons .signup:hover {
+
+    opacity: 0.7;
+
+}if you need any extra info let me know feel free to modify .tsx files as well to fit with the .css files 
+
+
+

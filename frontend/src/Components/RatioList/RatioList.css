@@ -1,0 +1,148 @@
+/* General container styling */
+.bg-white {
+    background-color: #ffffff;
+}
+
+.shadow {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.ml-4 {
+    margin-left: 1rem;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+.sm\\:p-6 {
+    padding: 1.5rem;
+}
+
+.w-full {
+    width: 100%;
+}
+
+/* Restrict width and center align */
+div.bg-white {
+    max-width: 1200px; /* Adjust this value to match your table width */
+    margin: 0 auto; /* Center-align the list container */
+}
+
+/* List styling */
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none; /* Remove default list styling */
+}
+
+.divide-y {
+    border-top: 1px solid #e5e7eb;
+}
+
+.divide-gray-200 {
+    border-color: #e5e7eb;
+}
+
+/* List items with padding */
+li {
+    padding: 1rem; /* Add padding inside each list item */
+    margin-bottom: 0.5rem; /* Space between list items */
+    background-color: #f9f9f9; /* Subtle background color for each item */
+    border-radius: 0.25rem; /* Slight rounding for items */
+    display: flex; /* Flex for better layout alignment */
+    flex-direction: column; /* Ensure content stacks vertically */
+}
+
+/* Flexbox for list items */
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.space-x-4 {
+    column-gap: 1rem;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.min-w-0 {
+    min-width: 0;
+}
+
+/* Text styling with padding */
+.text-sm {
+    font-size: 0.875rem; /* Small text size */
+    padding-left: 0.5rem; /* Add padding inside the text content */
+    padding-right: 0.5rem;
+}
+
+.font-medium {
+    font-weight: 500;
+}
+
+.text-gray-900 {
+    color: #1f2937; /* Darker gray */
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-gray-500 {
+    color: #6b7280; /* Medium gray */
+}
+
+.text-base {
+    font-size: 1rem; /* Base font size */
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+/* Link styling */
+a.__cf_email__ {
+    text-decoration: none;
+    color: inherit; /* Match parent color */
+    cursor: pointer;
+    padding-left: 0.5rem; /* Ensure links have padding too */
+    padding-right: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    div.bg-white {
+        max-width: 100%; /* Ensure it fits on smaller screens */
+        padding: 1rem;
+    }
+
+    li {
+        margin-bottom: 0.75rem; /* Increase spacing for smaller screens */
+        padding: 0.75rem; /* Adjust padding on smaller screens */
+    }
+
+    .text-sm {
+        font-size: 0.875rem; /* Ensure readability on smaller screens */
+    }
+}

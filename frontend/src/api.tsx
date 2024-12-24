@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {CompanySearch} from "./company";
+import {CompanyIncomeStatement, CompanyKeyMetrics, CompanyProfile, CompanySearch} from "./company";
 
 interface SearchResponse{
     data: CompanySearch[];
@@ -27,3 +27,39 @@ export const searchCompany = async (query: string) => {
         }
     }
 };
+
+export const getCompanyProfile = async (query: string) => {
+    try{
+        return await axios.get<CompanyProfile>(
+            `https://financialmodelingprep.com/api/v3/profile/${query}?apikey=${import.meta.env.VITE_API_KEY}`,
+        );
+    }catch (error){
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        console.log("error message from API: ", error.message);
+    }
+}
+
+export const getKeyMetrics = async (query: string) => {
+    try{
+        return await axios.get<CompanyKeyMetrics>(
+            `https://financialmodelingprep.com/api/v3/key-metrics-ttm/${query}?apikey=${import.meta.env.VITE_API_KEY}`,
+        );
+    }catch (error){
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        console.log("error message from API: ", error.message);
+    }
+}
+
+export const getIncomeStatement = async (query: string) => {
+    try{
+        return await axios.get<CompanyIncomeStatement>(
+            `https://financialmodelingprep.com/api/v3/income-statement/${query}?period=annual&apikey=${import.meta.env.VITE_API_KEY}`,
+        );
+    }catch (error){
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        console.log("error message from API: ", error.message);
+    }
+}

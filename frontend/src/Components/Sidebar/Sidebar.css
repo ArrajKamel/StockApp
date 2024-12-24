@@ -1,0 +1,37 @@
+/* Sidebar styles */
+.sidebar {
+    background-color: #f4f4f4;
+    height: 100vh; /* Full height */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.sidebar-content {
+    flex: 1;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between icon and title */
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+}
+
+.menu-item:hover {
+    color: lightgreen;
+}
+
+.menu-title {
+    margin: 0;
+    font-weight: bold;
+}
