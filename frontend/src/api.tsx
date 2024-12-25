@@ -1,5 +1,12 @@
 import axios from 'axios';
-import {CompanyIncomeStatement, CompanyKeyMetrics, CompanyProfile, CompanySearch} from "./company";
+import {
+    CompanyBalanceSheet,
+    CompanyCashFlow,
+    CompanyIncomeStatement,
+    CompanyKeyMetrics,
+    CompanyProfile,
+    CompanySearch
+} from "./company";
 
 interface SearchResponse{
     data: CompanySearch[];
@@ -54,8 +61,32 @@ export const getKeyMetrics = async (query: string) => {
 
 export const getIncomeStatement = async (query: string) => {
     try{
-        return await axios.get<CompanyIncomeStatement>(
+        return await axios.get<CompanyIncomeStatement[]>(
             `https://financialmodelingprep.com/api/v3/income-statement/${query}?period=annual&apikey=${import.meta.env.VITE_API_KEY}`,
+        );
+    }catch (error){
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        console.log("error message from API: ", error.message);
+    }
+}
+
+export const getBalanceSheet = async (query: string) => {
+    try{
+        return await axios.get<CompanyBalanceSheet[]>(
+            `https://financialmodelingprep.com/api/v3/balance-sheet-statement/${query}?period=annual&apikey=${import.meta.env.VITE_API_KEY}`,
+        );
+    }catch (error){
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        console.log("error message from API: ", error.message);
+    }
+}
+
+export const getCashFlowStatement = async (query: string) => {
+    try{
+        return await axios.get<CompanyCashFlow[]>(
+            `https://financialmodelingprep.com/api/v3/cash-flow-statement/${query}?period=annual&apikey=${import.meta.env.VITE_API_KEY}`,
         );
     }catch (error){
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment

@@ -61,16 +61,16 @@ const configs = [
 ];
 const IncomeStatement = ()  =>{
     const ticker = useOutletContext<string>();
-    const [incomeStatement, setIncomeStatement] = useState<CompanyIncomeStatement>();
+    const [incomeStatement, setIncomeStatement] = useState<CompanyIncomeStatement[]>();
     useEffect(() => {
         const incomeStatementFetch = async () => {
             const result = await getIncomeStatement(ticker);
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-expect-error
-            setIncomeStatement(result?.data[0]);
+            setIncomeStatement(result?.data);
         }
         incomeStatementFetch();
-    }, [])
+    }, []);
 
     return (
         <>

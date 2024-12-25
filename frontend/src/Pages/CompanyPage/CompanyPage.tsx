@@ -33,7 +33,12 @@ const CompanyPage = () => {
                 <div className="tail-container">
                     <CompanyDashboard ticker={ticker!} >
                         <Tail title="Company Name" subtitle={company.companyName}/>
-                        <Tail title="Company Name" subtitle={company.companyName}/>
+                        <Tail title="Price" subtitle={company.price.toString()}/>
+                        <Tail title="Sector" subtitle={company.sector}/>
+                        <Tail title="DCF" subtitle={company.dcf.toString()}/>
+                        <p className="company-description">
+                            {company.description}
+                        </p>
                     </CompanyDashboard>
                 </div>
             </div>

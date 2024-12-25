@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
-import {FaHome} from "react-icons/fa";
+import {FaHome, FaBalanceScale, FaHandPaper, FaCashRegister} from "react-icons/fa";
 
 const Sidebar = () => {
     return (
@@ -19,8 +19,18 @@ const Sidebar = () => {
                     </Link>
 
                     <Link to="income-statement" className="menu-item" >
-                        <FaHome />
+                        <FaHandPaper />
                         <h6 className="menu-title">Income Statement</h6>
+                    </Link>
+
+                    <Link to="balance-sheet" className="menu-item" >
+                        <FaBalanceScale />
+                        <h6 className="menu-title">Balance Sheet</h6>
+                    </Link>
+
+                    <Link to="cashflow-statement" className="menu-item" >
+                        <FaCashRegister />
+                        <h6 className="menu-title">Cashflow Statement</h6>
                     </Link>
 
                 </div>

@@ -13,7 +13,7 @@ interface Props {
 const Card: React.FC<Props> = ({ id, searchResult, onPortfolioCreate }: Props): JSX.Element => {
     return (
         <div className="card" key={id} id={id}>
-            <Link to={`/company/${searchResult.symbol}`}>
+            <Link to={`/company/${searchResult.symbol}/company-profile`}>
                 {searchResult.name} ({searchResult.symbol})
             </Link>
             <p>{searchResult.currency}</p>
