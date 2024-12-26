@@ -4,6 +4,7 @@ using api.Interfaces;
 using api.Repository;
 using api.Mapper;
 using api.Models;
+using api.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,12 +12,13 @@ namespace api.Controller
 {
     [Route("api/comment")]
     [ApiController]
-    public class CommentController(ICommentRepository commentRepository, IStockRepository stockRepository, UserManager<AppUser> userManager)
+    public class CommentController(ICommentRepository commentRepository, IStockRepository stockRepository, UserManager<AppUser> userManager, IFMPService fmpService)
         : ControllerBase
     {
         private readonly ICommentRepository _commentRepository = commentRepository;
         private readonly IStockRepository _stockRepository = stockRepository;
         private readonly UserManager<AppUser> _userManager = userManager;
+        private readonly IFMPService _fmpService = fmpService;
         
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -43,21 +45,32 @@ namespace api.Controller
             return Ok(comment.ToCommentDto());
         }
 
-        [HttpPost("{stockId}:int")]
-        public async Task<IActionResult> Create([FromRoute] int stockId, [FromBody] CommentCreateDto commentDto)
+        [HttpPost("{symbol}:alpha")]
+        public async Task<IActionResult> Create([FromRoute] string symbol, [FromBody] CommentCreateDto commentDto)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
-            
-            if (!await _stockRepository.StockExists(stockId))
+
+            var stock = await _stockRepository.GetBySymbolAsync(symbol);
+            // if the stock is null it means that it is not in my database and i have to bring it from FMP using thire api 
+            if (stock == null)
             {
-                return BadRequest("Stock does not exist");
+                stock = await _fmpService.FindStockBySymbolAsync(symbol);
+                // in this case if the stock is null it means the stock is not existed at all and then we say badRequest
+                if (stock == null)
+                {
+                    return BadRequest("stock not found" + FMPService.url); 
+                }
+                else
+                {
+                    await _stockRepository.CreateAsync(stock);
+                }
             }
 
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
             
-            var commentModel =  commentDto.CommentCreateDtoToCommentDto(stockId);
+            var commentModel =  commentDto.CommentCreateDtoToCommentDto(stock.Id);
             commentModel.AppUserId = appUser.Id;
             
             await _commentRepository.CreateAsync(commentModel);

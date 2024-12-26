@@ -32,5 +32,18 @@ namespace api.Mapper
                 Purchase = stockDto.Purchase
             };
         }
+        
+        public static Stock ToStockFromFMP(this FMPStock fmpStock)
+        {
+            return new Stock
+            {
+                CompanyName = fmpStock.companyName,
+                Industry = fmpStock.industry,
+                LastDiv = (decimal) fmpStock.lastDiv,
+                MarketCap = fmpStock.mktCap,
+                Symbol = fmpStock.symbol,
+                Purchase = (decimal) fmpStock.price
+            };
+        }
     }
 }
