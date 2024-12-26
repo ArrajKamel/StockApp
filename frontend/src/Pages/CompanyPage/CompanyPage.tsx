@@ -6,6 +6,9 @@ import Sidebar from "../../Components/Sidebar/Sidebar.tsx";
 import CompanyDashboard from "../../Components/CompanyDashboard/CompanyDashboard";
 import Tail from "../../Components/Tail/Tail.tsx"
 import "./CompanyPage.css"
+import Spinner from "../../Components/Spinner/Spinner.tsx";
+import CompFinder from "../../Components/CompFinder/CompFinder.tsx";
+import TenKFinder from "../../Components/TenKFinder/TenKFinder.tsx";
 
 const CompanyPage = () => {
 
@@ -26,16 +29,20 @@ const CompanyPage = () => {
     <>
         {company ? (
             <div className="page-layout">
-                <div className="sidebar">
+                <div>
                     <Sidebar/>
                 </div>
 
-                <div className="tail-container">
+                <div className="card-tail-container">
                     <CompanyDashboard ticker={ticker!} >
                         <Tail title="Company Name" subtitle={company.companyName}/>
                         <Tail title="Price" subtitle={company.price.toString()}/>
                         <Tail title="Sector" subtitle={company.sector}/>
                         <Tail title="DCF" subtitle={company.dcf.toString()}/>
+
+                        <CompFinder ticker={company.symbol} />
+                        <TenKFinder ticker={company.symbol} />
+
                         <p className="company-description">
                             {company.description}
                         </p>
@@ -43,7 +50,7 @@ const CompanyPage = () => {
                 </div>
             </div>
         ) : (
-            <div>Company Not Found!</div>
+            <Spinner />
         )
         };
     </>

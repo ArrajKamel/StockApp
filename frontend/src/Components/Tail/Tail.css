@@ -4,9 +4,20 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 20px; /* Adjust this value to control the roundness */
+
+}
+.card-tail-container {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 20px; /* Adjust this value to control the roundness */
+
 }
 
 .tail-card {
+
     display: flex;
     flex-direction: column;
 }

@@ -1,0 +1,43 @@
+/* LinkButton.css */
+
+.link-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem; /* px-4 py-2 */
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 500; /* font-medium */
+    color: #ffffff; /* text-white */
+    background-color: #90ee90; /* bg-lightGreen */
+    border: 1px solid #d1d5db; /* border-gray-200 */
+    border-radius: 0.5rem 0 0 0.5rem; /* rounded-l-lg */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover effects */
+}
+
+.link-button:hover {
+    background-color: #f3f4f6; /* hover:bg-gray-100 */
+    color: #1d4ed8; /* hover:text-blue-700 */
+}
+
+.link-button:focus {
+    z-index: 10; /* focus:z-10 */
+    outline: none;
+    ring-width: 2px; /* focus:ring-2 */
+    ring-color: #1d4ed8; /* focus:ring-blue-700 */
+    color: #1d4ed8; /* focus:text-blue-700 */
+}
+
+.link-button.dark {
+    background-color: #374151; /* dark:bg-gray-700 */
+    border-color: #4b5563; /* dark:border-gray-600 */
+    color: #ffffff; /* dark:text-white */
+}
+
+.link-button.dark:hover {
+    background-color: #4b5563; /* dark:hover:bg-gray-600 */
+    color: #ffffff; /* dark:hover:text-white */
+}
+
+.link-button.dark:focus {
+    ring-color: #3b82f6; /* dark:focus:ring-blue-500 */
+    color: #ffffff; /* dark:focus:text-white */
+}

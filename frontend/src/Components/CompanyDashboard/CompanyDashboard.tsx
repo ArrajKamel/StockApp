@@ -14,7 +14,7 @@ const CompanyDashboard = ({ children, ticker }: Props) => {
                 <div className="children-container">
                     {children}
                 </div>
-                <div className="outlet-container">
+                <div className="outlet-container" >
                     <Outlet context={ticker}/>
                 </div>
             </div>

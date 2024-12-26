@@ -8,8 +8,8 @@ type Props = {
 const Tail = ({ title, subtitle }: Props) => {
     return (
         <div className="tail-container">
-            <div className="tail-card">
-                <div className="tail-content">
+            <div >
+                <div>
                     <div className="tail-header">
                         <h5 className="tail-title">{title}</h5>
                         <span className="tail-subtitle">{subtitle}</span>

@@ -1,8 +1,10 @@
+
 import {CompanyIncomeStatement} from "../../company";
 import {useOutletContext} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {getIncomeStatement} from "../../api.tsx";
 import Table from "../Table/Table.tsx";
+import Spinner from "../Spinner/Spinner.tsx";
 
 const configs = [
     {
@@ -65,8 +67,6 @@ const IncomeStatement = ()  =>{
     useEffect(() => {
         const incomeStatementFetch = async () => {
             const result = await getIncomeStatement(ticker);
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
             setIncomeStatement(result?.data);
         }
         incomeStatementFetch();
@@ -80,7 +80,7 @@ const IncomeStatement = ()  =>{
                 </>
             ): (
                 <>
-                    ...loading
+                   <Spinner/>
                 </>
             )
             }

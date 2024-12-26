@@ -4,6 +4,7 @@ import {searchCompany} from "../../api.tsx";
 import Search from "../../Components/Search/Search.tsx";
 import PortfolioList from "../../Components/Portfolio/PortfolioList/PortfolioList.tsx";
 import CardList from "../../Components/CardList/CardList.tsx";
+import Spinner from "../../Components/Spinner/Spinner.tsx";
 
 
 
@@ -64,7 +65,10 @@ const SearchPage = () => {
                 searchResults={searchResult}
                 onPortfolioCreate={onPortfolioCreate}
             />
-            {serverError && <h1>{serverError}</h1>}
+            {serverError && <h1>
+                {serverError}
+                <Spinner/>
+            </h1>}
         </div>
     );
 }
